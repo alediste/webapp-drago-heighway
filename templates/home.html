@@ -1,8 +1,42 @@
+{# Eredita la struttura comune (header, nav, footer) da base.html #}
 {% extends "base.html" %}
+
+{# Personalizza il titolo della scheda del browser #}
 {% block title %}Home - {{ title }}{% endblock %}
+
+{# Inserisce il contenuto specifico di questa pagina nel blocco
+   "content" definito in base.html #}
 {% block content %}
 <section>
-    <h2>Drago di Heighway</h2>
-    <p><em>Pagina in costruzione - i contenuti veri arriveranno dal frontend.</em></p>
+    <h2>Cosa sono i frattali?</h2>
+    <p>
+        Un <strong>frattale</strong> è una figura geometrica che presenta una
+        struttura ricca di dettagli a ogni livello di ingrandimento. Le sue
+        caratteristiche principali sono l'<strong>autosimilarità</strong> (parti
+        della figura assomigliano alla figura intera) e il fatto di nascere
+        dall'<strong>iterazione</strong> di una semplice regola matematica.
+    </p>
+    <p>
+        I frattali compaiono spesso in natura: nelle linee costiere, nelle
+        felci, nei fiocchi di neve, nei sistemi di vasi sanguigni. In
+        informatica e arte digitale servono per generare paesaggi, texture,
+        effetti visivi e modelli matematici di sistemi complessi.
+    </p>
+</section>
+
+<section>
+    <h2>Il Drago di Heighway</h2>
+    <p>
+        Il nostro gruppo si è dedicato al <strong>Drago di Heighway</strong>,
+        un frattale costruito con il <em>metodo delle trasformazioni iterate</em>:
+        a ogni passo il segmento di partenza viene sostituito da una coppia di
+        segmenti più piccoli, ottenuti applicando rotazioni e scale precise.
+    </p>
+    <p>Esplora le sezioni del sito:</p>
+    <ul style="margin-left:1.2rem; margin-bottom:1rem;">
+        <li><a href="{{ url_for('frattale') }}">Frattale</a> - la matematica del Drago</li>
+        <li><a href="{{ url_for('generatore') }}">Generatore</a> - crea il tuo Drago</li>
+        <li><a href="{{ url_for('archivio') }}">Archivio</a> - i frattali già generati</li>
+    </ul>
 </section>
 {% endblock %}
