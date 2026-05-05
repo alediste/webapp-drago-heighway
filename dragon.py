@@ -35,6 +35,8 @@ import os                                # per cartelle/file
 import random                            # per parametri casuali
 from datetime import datetime            # per timestamp nei nomi
 
+import re
+
 
 def matrice_rotazione(angolo_rad):
     """
@@ -197,6 +199,34 @@ def parametri_casuali_plausibili():
     angolo = random.choice(angoli_possibili)
     iterazioni = random.randint(10, 14)
     return angolo, iterazioni
+
+def estrai_parametri_da_nome(nome_file):
+    """
+    Estrae angolo e iterazioni dal nome del file generato.
+
+    I nostri file hanno questo formato standard:
+        drago_a{angolo}_i{iterazioni}_{timestamp}.png
+    Esempio: "drago_a45_i12_20250506_153022.png" -> (45, 12)
+
+    Servira' a Cuse per mostrare angolo e iterazioni nelle card
+    della pagina archivio.
+
+    Args:
+        nome_file (str): nome del file PNG
+
+    Returns:
+        tuple or None: (angolo, iterazioni) oppure None se non
+        riconosciuto (es. file caricato manualmente con altro nome).
+    """
+    # re.match cerca un pattern all'inizio della stringa.
+    # \d+ significa "una o piu' cifre".
+    # Le parentesi tonde catturano i numeri trovati come gruppi.
+    match = re.match(r"drago_a(\d+)_i(\d+)_", nome_file)
+    if match:
+        # group(1) = primo gruppo catturato (angolo)
+        # group(2) = secondo gruppo catturato (iterazioni)
+        return int(match.group(1)), int(match.group(2))
+    return None
 
 
 # === Test rapido se eseguito direttamente ===
