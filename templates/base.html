@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {# Titolo della pagina: ogni pagina figlia puo' personalizzarlo
+       sovrascrivendo il blocco "title" #}
+    <title>{% block title %}Drago di Heighway{% endblock %}</title>
+
+    {# url_for() costruisce il percorso corretto al file CSS,
+       indipendentemente da dove e' deployata l'app. Piu' robusto
+       che scrivere "/static/css/style.css" a mano. #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {# Manifest: rendera' la web app installabile come PWA.
+       Il file manifest.json lo creeremo martedi'. #}
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+</head>
+<body>
+    {# Header con logo + barra di navigazione, comune a tutte le pagine #}
+    <header>
+        <div class="header-inner">
+            <a href="{{ url_for('home') }}" class="logo">
+                Drago di Heighway
+            </a>
+            <nav>
+                {# url_for('home') punta alla funzione home() di app.py.
+                   Vantaggio: se cambiamo l'URL della route, i link si
+                   aggiornano automaticamente. #}
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('frattale') }}">Frattale</a>
+                <a href="{{ url_for('generatore') }}">Generatore</a>
+                <a href="{{ url_for('archivio') }}">Archivio</a>
+            </nav>
+        </div>
+    </header>
+
+    {# Qui ogni pagina figlia inserisce il proprio contenuto.
+       Il blocco "content" e' vuoto in base.html ma viene riempito
+       dalle pagine che fanno {% extends "base.html" %} #}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {# Footer comune a tutte le pagine #}
+    <footer>
+        <p>Progetto multidisciplinare - IIS Europa Unita</p>
+    </footer>
+</body>
+</html>

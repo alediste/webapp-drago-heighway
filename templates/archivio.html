@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Archivio - {{ title }}{% endblock %}
+{% block content %}
+<section>
+    <h2>Archivio dei frattali generati</h2>
+    {% if items %}
+        <p>{{ items|length }} immagini in archivio.</p>
+    {% else %}
+        <p><em>Nessun frattale ancora generato.</em></p>
+    {% endif %}
+</section>
+{% endblock %}

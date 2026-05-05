@@ -1,0 +1,110 @@
+/* === RESET DI BASE === */
+/* Rimuove margini/padding di default e usa box-sizing border-box
+   (cosi' larghezza/altezza includono bordi e padding). */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* === VARIABILI CSS ===
+   Definite una volta in :root, riutilizzabili in tutto il file.
+   Per cambiare colori del sito basta modificarle qui. */
+:root {
+    --color-bg: #f8fafc;          /* sfondo della pagina */
+    --color-surface: #ffffff;     /* sfondo delle "card" */
+    --color-primary: #0f172a;     /* navy: header, footer, titoli */
+    --color-accent: #f97316;      /* arancione: hover, accenti */
+    --color-text: #1f2937;        /* testo principale */
+    --color-muted: #64748b;       /* testo secondario */
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    color: var(--color-text);
+    background: var(--color-bg);
+    /* Layout flexbox verticale: footer rimane in fondo
+       anche se la pagina e' corta */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* === HEADER === */
+header {
+    background: var(--color-primary);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: var(--shadow);
+}
+
+.header-inner {
+    /* Layout orizzontale: logo a sinistra, nav a destra */
+    max-width: 1100px;
+    margin: 0 auto;          /* centra orizzontalmente */
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;          /* va a capo su mobile */
+    gap: 1rem;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+nav { display: flex; gap: 1.5rem; }
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;     /* effetto smooth sull'hover */
+}
+
+nav a:hover { color: var(--color-accent); }
+
+/* === MAIN: contenuto della pagina === */
+main {
+    flex: 1;                  /* occupa tutto lo spazio verticale */
+    max-width: 1100px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+/* === SECTION: blocchi di contenuto === */
+section {
+    background: var(--color-surface);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+section h2 {
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+section p { margin-bottom: 1rem; }
+
+/* === FOOTER === */
+footer {
+    background: var(--color-primary);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+/* === RESPONSIVE: schermi piccoli === */
+@media (max-width: 600px) {
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    nav { flex-wrap: wrap; gap: 1rem; }
+    section { padding: 1.5rem; }
+}
