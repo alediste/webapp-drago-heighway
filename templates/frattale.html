@@ -1,8 +1,55 @@
 {% extends "base.html" %}
 {% block title %}Frattale - {{ title }}{% endblock %}
+
 {% block content %}
 <section>
     <h2>Il Drago di Heighway</h2>
-    <p><em>Spiegazione matematica in arrivo.</em></p>
+    <p>
+        Il <strong>Drago di Heighway</strong> è un frattale auto-simile costruito
+        con il <em>metodo delle trasformazioni iterate</em>. Partendo da un
+        segmento di lunghezza L, ad ogni iterazione si applicano due
+        trasformazioni geometriche e si combinano i risultati.
+    </p>
+
+    <h3>Le due trasformazioni</h3>
+    <p>Dato un angolo α, le trasformazioni sono:</p>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+        <li>
+            <strong>T₁</strong>: rotazione di α e riduzione di un fattore cos(α)
+        </li>
+        <li>
+            <strong>T₂</strong>: rotazione di (90°+α), riduzione di sin(α),
+            seguita da una traslazione di L verso destra
+        </li>
+    </ul>
+    <p>
+        Le due figure ottenute vengono unite. Nel caso classico α = 45° il
+        triangolo costruito è rettangolo e isoscele.
+    </p>
+</section>
+
+<section>
+    <h3>L'angolo α e la forma del drago</h3>
+    <p>
+        L'angolo α è il parametro che determina l'aspetto del frattale:
+    </p>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+        <li><strong>α = 25°-35°</strong>: drago allungato e sottile</li>
+        <li><strong>α = 40°-50°</strong>: forme classiche e simmetriche</li>
+        <li><strong>α = 55°-65°</strong>: drago compatto e arricciato</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Crescita del numero di punti</h3>
+    <p>
+        Il numero di punti raddoppia a ogni iterazione: dopo N iterazioni la
+        figura ha 2<sup>N</sup>+1 punti.
+        Per questo motivo, oltre 16 iterazioni il calcolo diventa pesante e
+        l'immagine, troppo dettagliata, perde leggibilità.
+    </p>
+    <p>
+        Vai al <a href="{{ url_for('generatore') }}">Generatore</a> per provare!
+    </p>
 </section>
 {% endblock %}

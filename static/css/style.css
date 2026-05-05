@@ -226,3 +226,60 @@ footer {
     nav { flex-wrap: wrap; gap: 1rem; }
     section { padding: 1.5rem; }
 }
+
+/* === ARCHIVIO === */
+.archivio-grid {
+    /* Grid che crea automaticamente colonne larghe almeno 240px,
+       riempiendo lo spazio disponibile */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.card {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #e2e8f0;
+}
+
+/* Effetto hover: si alza leggermente */
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: contain;     /* mantiene proporzioni, riempie spazio */
+    background: #f1f5f9;
+    padding: 0.5rem;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-name {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    margin-bottom: 0.3rem;
+    word-break: break-all;   /* nomi lunghi vanno a capo */
+}
+
+.card-date {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}

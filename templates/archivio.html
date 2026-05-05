@@ -1,12 +1,43 @@
 {% extends "base.html" %}
 {% block title %}Archivio - {{ title }}{% endblock %}
+
 {% block content %}
 <section>
     <h2>Archivio dei frattali generati</h2>
+
     {% if items %}
-        <p>{{ items|length }} immagini in archivio.</p>
+        <p>
+            <strong>{{ items|length }}</strong>
+            {% if items|length == 1 %}immagine{% else %}immagini{% endif %}
+            in archivio, ordinate dalla più recente.
+        </p>
+
+        {# Grid responsive: una colonna su mobile, piu' colonne su schermi grandi #}
+        <div class="archivio-grid">
+            {# Loop su tutti gli items passati da Flask #}
+            {% for item in items %}
+            <article class="card">
+                {# Click sull'immagine: apre in tab nuova #}
+                <a href="{{ item.url }}" target="_blank">
+                    <img src="{{ item.url }}" alt="Frattale generato il {{ item.data }}">
+                </a>
+                <div class="card-body">
+                    <p class="card-name">{{ item.name }}</p>
+                    <p class="card-date">{{ item.data }}</p>
+                    {# Attributo download: forza il download invece di aprire #}
+                    <a href="{{ item.url }}" download class="btn btn-secondary btn-small">
+                        Scarica
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
     {% else %}
         <p><em>Nessun frattale ancora generato.</em></p>
+        <p>
+            Vai al <a href="{{ url_for('generatore') }}">Generatore</a>
+            per creare il primo!
+        </p>
     {% endif %}
 </section>
 {% endblock %}
