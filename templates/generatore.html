@@ -1,8 +1,77 @@
 {% extends "base.html" %}
 {% block title %}Generatore - {{ title }}{% endblock %}
+
 {% block content %}
 <section>
     <h2>Genera il tuo Drago</h2>
-    <p><em>Form in arrivo.</em></p>
+    <p>
+        Scegli i parametri e clicca <strong>Genera</strong>. Per un caso classico
+        usa angolo 45 e iterazioni 12. Per esplorare varianti, clicca
+        <strong>Valori casuali</strong>.
+    </p>
+
+    {# Se la pagina e' stata aperta dalla route /casuale, mostra un avviso #}
+    {% if casuale %}
+    <p style="color: var(--color-accent); font-weight: 500;">
+        Parametri casuali generati! Clicca Genera per vederli applicati.
+    </p>
+    {% endif %}
+
+    {# Form HTML.
+       - method="POST": i dati vanno inviati a Flask via POST
+       - action="...": URL a cui mandare i dati (la route /generatore stessa) #}
+    <form method="POST" action="{{ url_for('generatore') }}" class="form-genera">
+
+        <div class="form-row">
+            <label for="angolo">
+                Angolo α (gradi)
+                <small>tra 10 e 80</small>
+            </label>
+            {# - type="number": campo numerico
+               - name="angolo": chiave usata da Flask in request.form
+               - value="{{ angolo }}": valore di default (passato dal backend)
+               - min/max: limiti accettati
+               - required: il campo e' obbligatorio #}
+            <input type="number" id="angolo" name="angolo"
+                   min="10" max="80" value="{{ angolo }}" required>
+        </div>
+
+        <div class="form-row">
+            <label for="iterazioni">
+                Iterazioni
+                <small>tra 1 e 18 (consigliato 10-14)</small>
+            </label>
+            <input type="number" id="iterazioni" name="iterazioni"
+                   min="1" max="18" value="{{ iterazioni }}" required>
+        </div>
+
+        <div class="form-actions">
+            {# type="submit": questo bottone invia il form #}
+            <button type="submit" class="btn btn-primary">Genera</button>
+            {# Bottone "valori casuali": e' un link alla route /casuale #}
+            <a href="{{ url_for('casuale') }}" class="btn btn-secondary">
+                Valori casuali
+            </a>
+        </div>
+    </form>
 </section>
+
+{# Se Flask ci ha passato un'immagine generata, la mostriamo #}
+{% if immagine %}
+<section>
+    <h2>Risultato</h2>
+    <div class="risultato">
+        <img src="{{ url_for('static', filename='generated/' + immagine) }}"
+             alt="Drago di Heighway generato">
+        <p>
+            <strong>Angolo:</strong> {{ angolo }}°
+            &nbsp;
+            <strong>Iterazioni:</strong> {{ iterazioni }}
+        </p>
+        {# Link con attributo "download": cliccando si scarica il PNG #}
+        <a href="{{ url_for('static', filename='generated/' + immagine) }}"
+           download class="btn btn-primary">Scarica PNG</a>
+    </div>
+</section>
+{% endif %}
 {% endblock %}
