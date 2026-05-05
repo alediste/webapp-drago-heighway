@@ -61,9 +61,58 @@ Per gestire il numero crescente di punti si usa numpy:
 | `/casuale`    | GET       | Genera parametri casuali plausibili |
 | `/archivio`   | GET       | Galleria dinamica dei PNG |
 
-## 6. (DA COMPLETARE MERCOLEDÌ)
+## 6. Decisioni progettuali
 
-- Decisioni progettuali su palette, font, layout
-- Problemi incontrati e soluzioni
-- Test eseguiti
-- Possibili miglioramenti
+### Scelta della palette colori
+Abbiamo scelto navy (#0f172a) + arancione (#f97316). Il navy trasmette
+serietà tecnica, l'arancione richiama il fuoco del drago.
+
+### Scelta dei font
+Manrope per il body (leggibilità su schermo) e Space Grotesk per i titoli
+(geometrico, in linea con l'estetica matematica).
+
+### Limiti dei parametri
+- Angolo: limitato a 10°-80° per evitare casi degeneri
+- Iterazioni: massimo 18 per evitare tempi di generazione eccessivi
+  (con N=18 si hanno oltre 262.000 punti)
+
+## 7. Problemi incontrati e soluzioni
+
+### Numero di punti che raddoppia
+Con iterazioni > 16 il server rallenta. Soluzione: limite a 18 nel form
+e linee più sottili nel PNG per immagini molto dettagliate.
+
+### Combinazione delle due liste
+Bisognava ricordare che la seconda lista va letta al contrario, e che
+l'ultimo punto coincide col primo della prima lista. Risolto con
+`np.hstack([punti1, punti2[:, -2::-1]])`.
+
+### Lavoro distribuito su Codespaces
+Tutti e tre abbiamo lavorato su GitHub Codespaces, accessibili da
+browser. Questo ci ha permesso di evitare differenze di ambiente tra
+i nostri PC e di collaborare anche dai computer della scuola.
+
+## 8. Test eseguiti
+
+- Generazione con angoli 25°, 30°, 35°, 40°, 45°, 50°, 55°, 60°: tutti OK
+- Iterazioni da 8 a 16: PNG generati correttamente
+- Pulsante valori casuali cliccato 20 volte: parametri sempre nei range
+- Archivio con 30+ immagini: caricamento veloce, ordinamento per data
+- Responsive testato su mobile (Chrome DevTools): layout adattato
+- Manifest verificato in DevTools → Application: app installabile
+
+## 9. Possibili miglioramenti
+
+- Animazione costruzione del frattale iterazione per iterazione
+- Scelta del colore del drago dal form
+- Service Worker per funzionamento offline (PWA completa)
+- Filtri nell'archivio (per angolo, iterazioni)
+- Export anche in SVG (vettoriale)
+
+## 10. Conclusioni
+
+Il progetto ha unito Informatica (Flask, Python, numpy, HTML/CSS, Git,
+GitHub) e Matematica (trigonometria, matrici di rotazione, frattali,
+iterazione). L'organizzazione in branch e Pull Request ci ha permesso
+di lavorare in parallelo, e Codespaces ci ha permesso di lavorare sia
+da casa che dai PC della scuola con un ambiente identico.
