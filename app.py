@@ -6,6 +6,10 @@ Versione del Lunedi': integra dragon.py per la generazione vera.
 from flask import Flask, render_template, request, url_for
 import os
 from datetime import datetime
+from zoneinfo import ZoneInfo
+
+# Fuso orario italiano (gestisce automaticamente ora legale/solare)
+FUSO_ITALIA = ZoneInfo("Europe/Rome")
 
 # Importiamo le funzioni che Inter ha scritto in dragon.py.
 # Adesso possiamo davvero generare il frattale!
@@ -93,7 +97,8 @@ def archivio():
             if f.endswith(".png"):
                 percorso = os.path.join(GENERATED_DIR, f)
                 ts = os.path.getmtime(percorso)
-                data = datetime.fromtimestamp(ts).strftime("%d/%m/%Y %H:%M")
+                # Converte il timestamp del file usando il fuso italiano
+                data = datetime.fromtimestamp(ts, FUSO_ITALIA).strftime("%d/%m/%Y %H:%M")
                 items.append({
                     "name": f,
                     "url": url_for("static", filename=f"generated/{f}"),

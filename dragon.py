@@ -33,7 +33,11 @@ import matplotlib.pyplot as plt
 # Librerie standard Python
 import os                                # per cartelle/file
 import random                            # per parametri casuali
-from datetime import datetime            # per timestamp nei nomi
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+# Fuso orario italiano (gestisce automaticamente ora legale/solare)
+FUSO_ITALIA = ZoneInfo("Europe/Rome")
 
 import re
 
@@ -160,7 +164,8 @@ def salva_drago_png(angolo_deg, iterazioni,
 
     # 5. Costruisci nome file unico con timestamp.
     # Formato: drago_a45_i12_20250503_153022.png
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # Usa il fuso orario italiano per il nome del file
+    timestamp = datetime.now(FUSO_ITALIA).strftime("%Y%m%d_%H%M%S")
     nome_file = f"drago_a{angolo_deg}_i{iterazioni}_{timestamp}.png"
     percorso = os.path.join(output_dir, nome_file)
 
